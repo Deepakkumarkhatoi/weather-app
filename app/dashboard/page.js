@@ -3,8 +3,16 @@ import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import WeatherCard from "@/components/WeatherCard";
 import { useRouter } from 'next/navigation';
-/*
-export default function Home() {
+import { useEffect } from 'react';
+
+export default function Dashboard() {
+     const router = useRouter();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) router.push('/signin'); // block access if not logged in
+  }, []);
+
   const [city, setCity] = useState("");
   const [weather, setWeather] = useState(null);
 
@@ -20,7 +28,7 @@ export default function Home() {
 
   setWeather(data);
 };
-/*
+
   return (
     <>
       <Navbar />
@@ -29,19 +37,5 @@ export default function Home() {
       <button onClick={fetchWeather}>Get Weather</button>
       {weather && <WeatherCard data={weather} />}
     </>
-  );
-}*/
-
-
-
-
-export default function Home() {
-  const router = useRouter();
-  return (
-    <main style={{ textAlign: 'center', marginTop: '100px' }}>
-      <h1>🌤️ Welcome to Weather App</h1>
-      <button onClick={() => router.push('/signup')}>Sign Up</button>
-      <button onClick={() => router.push('/signin')} style={{ marginLeft: '10px' }}>Sign In</button>
-    </main>
   );
 }

@@ -1,3 +1,4 @@
+// components/AuthForm.jsx
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -15,7 +16,11 @@ export default function AuthForm({ type }) {
     });
 
     if (res.ok) {
-      router.push("/");
+      if (type === "signup") {
+        router.push("/signin"); // redirect to signin after signup
+      } else {
+        router.push("/dashboard"); // redirect to dashboard after signin
+      }
     } else {
       const err = await res.json();
       alert(err.message);
